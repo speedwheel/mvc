@@ -31,7 +31,7 @@ func main() {
 
 	app.Run(
 		// Starts the web server at localhost:8080
-		iris.Addr("mvc.com:80"),
+		iris.Addr("127.0.0.1:80"),
 		// Disables the updater.
 		iris.WithoutVersionChecker,
 		// Ignores err server closed log when CTRL/CMD+C pressed.
