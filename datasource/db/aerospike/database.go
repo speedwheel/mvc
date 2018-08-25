@@ -31,6 +31,17 @@ func (db *Database) Set(key string, value interface{}) error {
 	return err
 }
 
+func (db *Database) Get(key string) (rec *aerospike.Record, err error) {
+	var newKey *aerospike.Key
+	newKey, err = aerospike.NewKey(db.DatabaseName, db.CollectionName, key)
+	if err != nil {
+		return
+	}
+	rec, err = db.Service.Get(nil, newKey)
+
+	return
+}
+
 func (db *Database) Close() {
 	defer db.Service.Close()
 }

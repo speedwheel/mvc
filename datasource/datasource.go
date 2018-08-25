@@ -1,6 +1,9 @@
 package datasource
 
-import "github.com/speedwheel/mvc/datasource/db/aerospike"
+import (
+	aero "github.com/aerospike/aerospike-client-go"
+	"github.com/speedwheel/mvc/datasource/db/aerospike"
+)
 
 type Engine uint32
 
@@ -11,6 +14,7 @@ const (
 
 type Database interface {
 	Set(key string, value interface{}) error
+	Get(key string) (*aero.Record, error)
 	UseDatabase(databaseName string)
 	UseCollection(collectionName string)
 	Close()

@@ -1,11 +1,13 @@
 package repositories
 
 import (
+	aerospike "github.com/aerospike/aerospike-client-go"
 	"github.com/speedwheel/mvc/datasource"
 )
 
 type PropertyRepository interface {
 	Insert(key string, property interface{}) error
+	Select(key string) (*aerospike.Record, error)
 }
 
 func NewPropertyRepository(source datasource.Database) PropertyRepository {
@@ -20,4 +22,8 @@ type propertyDatabaseRepository struct {
 
 func (r *propertyDatabaseRepository) Insert(key string, property interface{}) error {
 	return r.source.Set(key, property)
+}
+
+func (r *propertyDatabaseRepository) Select(key string) (*aerospike.Record, error) {
+	return r.source.Get(key)
 }

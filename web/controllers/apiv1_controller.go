@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 
+	aerospike "github.com/aerospike/aerospike-client-go"
 	"github.com/kataras/iris"
 	"github.com/speedwheel/mvc/datamodels"
 	"github.com/speedwheel/mvc/services"
@@ -22,4 +23,12 @@ func (c *ApiV1Controller) GetSetProperty() datamodels.Property {
 	err := c.Service.Create(property)
 	fmt.Println(err)
 	return property
+}
+
+func (c *ApiV1Controller) GetProperty() *aerospike.Record {
+	prop, err := c.Service.Select("1")
+	if err != nil {
+		fmt.Println(err)
+	}
+	return prop
 }
