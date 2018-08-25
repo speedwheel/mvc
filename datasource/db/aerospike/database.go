@@ -7,7 +7,6 @@ type Database struct {
 	DatabaseName   string
 	CollectionName string
 }
-type RowObj aerospike.BinMap
 
 func New(hostname string, port int) (*Database, error) {
 	service, err := aerospike.NewClient(hostname, port)
@@ -23,7 +22,7 @@ func (db *Database) UseCollection(collectionName string) {
 	db.CollectionName = collectionName
 }
 
-func (db *Database) Set(key string, value RowObj) error {
+func (db *Database) Set(key string, value interface{}) error {
 	newKey, err := aerospike.NewKey(db.DatabaseName, db.CollectionName, key)
 	if err != nil {
 		return err

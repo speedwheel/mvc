@@ -2,11 +2,10 @@ package repositories
 
 import (
 	"github.com/speedwheel/mvc/datasource"
-	"github.com/speedwheel/mvc/datasource/db/aerospike"
 )
 
 type PropertyRepository interface {
-	Insert(key string, property aerospike.RowObj) error
+	Insert(key string, property interface{}) error
 }
 
 func NewPropertyRepository(source datasource.Database) PropertyRepository {
@@ -19,6 +18,6 @@ type propertyDatabaseRepository struct {
 	source datasource.Database
 }
 
-func (r *propertyDatabaseRepository) Insert(key string, property aerospike.RowObj) error {
+func (r *propertyDatabaseRepository) Insert(key string, property interface{}) error {
 	return r.source.Set(key, property)
 }
