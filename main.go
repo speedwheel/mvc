@@ -32,7 +32,6 @@ func main() {
 	api.Party("/v1").Handle(new(controllers.ApiV1Controller))
 
 	app.Run(
-		// Starts the web server at localhost:8080
 		iris.Addr("94.237.30.15:80"),
 		// Disables the updater.
 		iris.WithoutVersionChecker,
