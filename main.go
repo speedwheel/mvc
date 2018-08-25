@@ -26,14 +26,14 @@ func main() {
 
 	index := mvc.New(app.Party("{resource:path}"))
 	index.Handle(new(controllers.IndexController))
-	api := mvc.New(app.Party("api."))
+	api := mvc.New(app.Party("/api"))
 	api.Router.Use(middleware.BasicAuth)
 	api.Handle(new(controllers.ApiController)).Register(propertyService)
 	api.Party("/v1").Handle(new(controllers.ApiV1Controller))
 
 	app.Run(
 		// Starts the web server at localhost:8080
-		iris.Addr("127.0.0.1:80"),
+		iris.Addr("94.237.30.15:80"),
 		// Disables the updater.
 		iris.WithoutVersionChecker,
 		// Ignores err server closed log when CTRL/CMD+C pressed.
