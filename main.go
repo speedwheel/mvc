@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris/mvc"
 	"github.com/speedwheel/mvc/datasource"
 	"github.com/speedwheel/mvc/repositories"
+	"github.com/speedwheel/mvc/services"
 	"github.com/speedwheel/mvc/web/controllers"
 	"github.com/speedwheel/mvc/web/middleware"
 )
@@ -20,13 +21,14 @@ func main() {
 		return
 	}
 	defer db.Close()
-	repositories.NewPropertyRepository(db)
+	proeprtyRepo := repositories.NewPropertyRepository(db)
+	propertyService := services.NewPropertyService(proeprtyRepo)
 
 	index := mvc.New(app.Party("{resource:path}"))
 	index.Handle(new(controllers.IndexController))
 	api := mvc.New(app.Party("api."))
 	api.Router.Use(middleware.BasicAuth)
-	api.Handle(new(controllers.ApiController))
+	api.Handle(new(controllers.ApiController)).Register(propertyService)
 	api.Party("/v1").Handle(new(controllers.ApiV1Controller))
 
 	app.Run(

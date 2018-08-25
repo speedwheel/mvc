@@ -10,7 +10,7 @@ const (
 )
 
 type Database interface {
-	Set(key string, value interface{}) error
+	Set(key string, value aerospike.RowObj) error
 	UseDatabase(databaseName string)
 	UseCollection(collectionName string)
 	Close()
