@@ -25,10 +25,10 @@ func (c *ApiV1Controller) GetSetProperty() datamodels.Property {
 	return property
 }
 
-func (c *ApiV1Controller) GetProperty() *aerospike.Record {
+func (c *ApiV1Controller) GetProperty() aerospike.BinMap {
 	prop, err := c.Service.Select("1")
 	if err != nil {
 		fmt.Println(err)
 	}
-	return prop
+	return prop.Bins
 }
